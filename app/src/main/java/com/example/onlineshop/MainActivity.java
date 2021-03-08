@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
@@ -16,9 +19,12 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(TAG, "ON CREATE");
         setContentView(R.layout.activity_main);
 
         List<Food> foodList = new ArrayList<>();
@@ -36,6 +42,36 @@ public class MainActivity extends AppCompatActivity {
         ((ListView)findViewById(R.id.food_list)).setAdapter(foodListAdapter);
         ((ListView)findViewById(R.id.food_list)).setOnItemClickListener(new FoodItemClickListner(foodListAdapter));
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.e(TAG, "ON START");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.e(TAG, "ON RESUME");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.e(TAG, "ON PAUSE");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.e(TAG, "ON STOP");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "ON DESTROY");
     }
 
     public void openFoodDescription(Food food) {
@@ -75,4 +111,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
 }
